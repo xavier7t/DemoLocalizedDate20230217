@@ -7,15 +7,33 @@
 
 import SwiftUI
 
+let locales: [String] = [
+    "en_US",
+    "es_US",
+    "fr_US",
+    "pt_PT",
+    "ar",
+    "bo",
+    "el",
+    "nb"
+]
+
 struct ContentView: View {
+    let now = Date()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(locales, id: \.self) { locale in
+                    HStack {
+                        Text(now, style: .date)
+                        Spacer()
+                        Text(now, style: .time)
+                    }
+                    .environment(\.locale, Locale(identifier: locale))
+                }
+            }
+            .navigationTitle("Localized Dates")
         }
-        .padding()
     }
 }
 
